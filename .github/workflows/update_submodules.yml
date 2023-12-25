@@ -14,6 +14,9 @@ jobs:
   update_submodules:
     name: Update submodules
     runs-on: ubuntu-18.04
+    strategy: 
+      matrix:
+        repos: [ template_cpp, template_pylib, template_python ]
     env:
       TZ: "Asia/Tokyo"
     if: contains(github.event.head_commit.message, '[ci skip]') == false
@@ -24,12 +27,8 @@ jobs:
     - name: Update submodules
       id: update
       run: |
-        git clone --recurse-submodules https://github.com/kirin123kirin/template_cpp.git
-        git clone --recurse-submodules https://github.com/kirin123kirin/template_pylib.git
-        git clone --recurse-submodules https://github.com/kirin123kirin/template_python.git
-        cd template_cpp && git submodule update --remote --recursive
-        cd ../template_pylib && git submodule update --remote --recursive
-        cd ../template_python && git submodule update --remote --recursive
+        cd ${{ matrix.repos }} && git clone --recurse-submodules ${{ matrix.repos }}.git
+        git submodule update --remote --recursive ${{ matrix.repos }}
         cd ..
     - name: Run git status
       id: status
@@ -38,7 +37,5 @@ jobs:
       run: |
         git config --global user.email "kirin123kirin@gmail.com"
         git config --global user.name "kirin123"
-        cd template_cpp && git commit -a -m "Update submodules at $(date "+DATE: %Y-%m-%d TIME: %H:%M:%S")" && git push
-        cd ../template_pylib && git commit -a -m "Update submodules at $(date "+DATE: %Y-%m-%d TIME: %H:%M:%S")" && git push
-        cd ../template_python && git commit -a -m "Update submodules at $(date "+DATE: %Y-%m-%d TIME: %H:%M:%S")" && git push
+        cd ${{ matrix.repos }} && git commit -a -m "Update submodules at $(date "+DATE: %Y-%m-%d TIME: %H:%M:%S")" && git push
       if: ${{ steps.status.outputs.status }}
