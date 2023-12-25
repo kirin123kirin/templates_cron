@@ -27,9 +27,8 @@ jobs:
     - name: Update submodules
       id: update
       run: |
-        cd ${{ matrix.repos }} && git clone --recurse-submodules ${{ matrix.repos }}.git
-        git submodule update --remote --recursive ${{ matrix.repos }}
-        cd ..
+        git clone --recurse-submodules ${{ matrix.repos }}.git
+        git -C ${{ matrix.repos }} submodule update --remote --recursive ${{ matrix.repos }}
     - name: Run git status
       id: status
       run: echo "::set-output name=status::$(git status -s)"
@@ -37,5 +36,6 @@ jobs:
       run: |
         git config --global user.email "kirin123kirin@gmail.com"
         git config --global user.name "kirin123"
-        cd ${{ matrix.repos }} && git commit -a -m "Update submodules at $(date "+DATE: %Y-%m-%d TIME: %H:%M:%S")" && git push
+        git -C ${{ matrix.repos }} commit -a -m "Update submodules at $(date "+DATE: %Y-%m-%d TIME: %H:%M:%S")"
+        git -C ${{ matrix.repos }} push
       if: ${{ steps.status.outputs.status }}
