@@ -27,8 +27,8 @@ jobs:
     - name: Update submodules
       id: update
       run: |
-        git clone --recurse-submodules ${{ matrix.repos }}.git
-        git -C ${{ matrix.repos }} submodule update --remote --recursive ${{ matrix.repos }}
+        git clone --recurse-submodules https://github.com/kirin123kirin/${{ matrix.repos }}.git
+        git -C ${{ matrix.repos }} submodule update --remote --recursive
     - name: Run git status
       id: status
       run: echo "::set-output name=status::$(git status -s)"
