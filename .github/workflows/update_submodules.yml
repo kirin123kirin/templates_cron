@@ -38,4 +38,4 @@ jobs:
         git -C ${{ matrix.repos }} config --global user.email "kirin123kirin@gmail.com"
         git -C ${{ matrix.repos }} config --global user.name "kirin123"
         git -C ${{ matrix.repos }} commit -a -m "Update submodules at $(date "+DATE: %Y-%m-%d TIME: %H:%M:%S")" && git -C ${{ matrix.repos }} push
-      if: ${{ steps.status.outputs.status }}
+      if: ${{ steps.status.outputs.ret }}
