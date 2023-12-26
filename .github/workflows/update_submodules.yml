@@ -31,7 +31,7 @@ jobs:
         git -C ${{ matrix.repos }} submodule update --remote --recursive
     - name: Run git status
       id: status
-      run: echo "{status}=$(git status -s)" >> $GITHUB_STATE
+      run: echo "status=$(git status -s)" >> $GITHUB_STATE
     - name: Add and commit files
       run: |
         git config --global user.email "kirin123kirin@gmail.com"
