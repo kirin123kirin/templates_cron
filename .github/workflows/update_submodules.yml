@@ -32,11 +32,10 @@ jobs:
     - name: Run git status
       id: status
       run: |
-        echo "status=$(git status -s)" >> $GITHUB_STATE
-        echo ${{ steps.status.outputs.status }}
+        echo "ret=$(git status -s)" >> $GITHUB_STATE
     - name: Add and commit files
       run: |
-        echo ${{ steps.status.outputs.status }}
+        echo ${{ steps.status.outputs.ret }}
         # git config --global user.email "kirin123kirin@gmail.com"
         # git config --global user.name "kirin123"
         # git -C ${{ matrix.repos }} commit -a -m "Update submodules at $(date "+DATE: %Y-%m-%d TIME: %H:%M:%S")"
