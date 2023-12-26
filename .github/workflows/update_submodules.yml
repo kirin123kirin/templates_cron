@@ -36,8 +36,9 @@ jobs:
         echo ${{ steps.status.outputs.status }}
     - name: Add and commit files
       run: |
-        git config --global user.email "kirin123kirin@gmail.com"
-        git config --global user.name "kirin123"
-        git -C ${{ matrix.repos }} commit -a -m "Update submodules at $(date "+DATE: %Y-%m-%d TIME: %H:%M:%S")"
-        git -C ${{ matrix.repos }} push
-      if: ${{ steps.status.outputs.status }}
+        echo ${{ steps.status.outputs.status }}
+        # git config --global user.email "kirin123kirin@gmail.com"
+        # git config --global user.name "kirin123"
+        # git -C ${{ matrix.repos }} commit -a -m "Update submodules at $(date "+DATE: %Y-%m-%d TIME: %H:%M:%S")"
+        # git -C ${{ matrix.repos }} push
+      # if: ${{ steps.status.outputs.status }}
