@@ -33,7 +33,7 @@ jobs:
       id: status
       run: |
         echo "status=$(git status -s)" >> $GITHUB_STATE
-        echo "status=$(git status -s)"
+        echo ${{ steps.status.outputs.status }}
     - name: Add and commit files
       run: |
         git config --global user.email "kirin123kirin@gmail.com"
