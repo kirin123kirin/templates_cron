@@ -35,8 +35,10 @@ jobs:
         echo "ret=`git status -s`" >> "$GITHUB_OUTPUT"
     - name: Add and commit files
       run: |
-        git remote rm origin
-        git -C ${{ matrix.repos }} remote add origin https://kirin123kirin:${{ secrets.PASSWORD }}@github.com/kirin123kirin/${{ matrix.repos }}.git
+        git config --global user.email "kirin123kirin@gmail.com"
+        git config --global user.name "kirin123"
         git -C ${{ matrix.repos }} commit -a -m "Update submodules at $(date "+DATE: %Y-%m-%d TIME: %H:%M:%S")"
+        git remote rm origin
+        git remote add origin https://kirin123kirin:${{ secrets.PASSWORD }}@github.com/kirin123kirin/${{ matrix.repos }}.git
         git -C ${{ matrix.repos }} push -u origin main
       if: ${{ steps.status.outputs.ret }}
