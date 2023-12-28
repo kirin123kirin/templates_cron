@@ -33,6 +33,7 @@ jobs:
       id: status
       run: |
         echo "ret=`git status -s`" >> "$GITHUB_OUTPUT"
+        echo $GITHUB_OUTPUT
     - name: Add and commit files
       run: |
         git config --global user.email "kirin123kirin@gmail.com"
